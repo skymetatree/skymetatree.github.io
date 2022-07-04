@@ -631,7 +631,7 @@
             })
             .attr("dy", "1.3em")
             .text(function(d) {
-                return d.data.ability_item4;
+                return d.data.ability_item4 ?? "-";
             });
 
         // money
@@ -646,7 +646,7 @@
             })
             .attr("dy", "5.6em")
             .text(function(d) {
-                return d.data.money;
+                return d.data.money ?? "-";
             });
 
     </script>
