@@ -1,0 +1,44 @@
+body {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    overflow: hidden;
+    background: black;
+}
+
+path {
+    fill: none;
+    stroke: #56c2a3;
+    stroke-width: 2
+}
+
+text {
+    fill: white;
+    pointer-events: none;
+    font-family: 'Consolas', serif;
+}
+
+.box {
+    fill: steelblue;
+    pointer-events: none;
+    font-family: 'Consolas', serif;
+}
+
+.title {
+    fill: yellow;
+    font-size: 1em;
+    text-anchor: middle;
+    pointer-events: none;
+    font-family: 'Consolas', serif;
+}
+
+.info-text {
+    fill: white;
+    font-size: 0.5em;
+    text-anchor: middle;
+    pointer-events: none;
+    font-family: 'Consolas', serif;
+}

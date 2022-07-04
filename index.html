@@ -1,0 +1,437 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>SkyBlock Meta Tree</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <svg id="canvas"></svg>
+    <script>
+        // meta tree data
+
+        const data = {
+            "name": "New Profile",
+            "helmet": "-",
+            "chestplate": "-",
+            "leggings": "-",
+            "boots": "-",
+            "pet": "-",
+            "main_weapon": "-",
+            "min_skill1": "-",
+            "min_skill2": "-",
+            "min_skill3": "-",
+            "ability_item1": "-",
+            "ability_item2": "-",
+            "ability_item3": "-",
+            "ability_item4": "-",
+            "children": [{
+                "name": "Rookie",
+                "helmet": "Farmer Suit",
+                "chestplate": "Farmer Suit",
+                "leggings": "Farmer Suit",
+                "boots": "Farmer Suit",
+                "pet": "Bee",
+                "main_weapon": "Undead Sword",
+                "ability_item1": "Iron Pickaxe",
+                "ability_item2": "Rookie Hoe",
+                "children": [{
+                    "name": "Fighter",
+                    "helmet": "Squire Armor",
+                    "chestplate": "Squire Armor",
+                    "leggings": "Squire Armor",
+                    "boots": "Squire Armor",
+                    "pet": "Bee",
+                    "main_weapon": "Squire Sword",
+                    "min_skill1": "Combat 5",
+                    "min_skill2": "-",
+                    "min_skill3": "70 Fairy Souls",
+                    "ability_item1": "Radiant Power Orb",
+                    "ability_item2": "Healing Wand",
+                    "children": [{
+                        "name": "Kuudra"
+                    }, {
+                        "name": "Slayer",
+                        "helmet": "Squire Armor",
+                        "chestplate": "Squire Armor",
+                        "leggings": "Squire Armor",
+                        "boots": "Squire Armor",
+                        "pet": "Bee",
+                        "main_weapon": "Squire Sword",
+                        "min_skill1": "Combat 5",
+                        "min_skill2": "-",
+                        "min_skill3": "70 Fairy Souls",
+                        "ability_item1": "Radiant Power Orb",
+                        "ability_item2": "Healing Wand",
+                        "children": [{
+                            "name": "t1 Rev",
+                            "helmet": "Squire Armor",
+                            "chestplate": "Squire Armor",
+                            "leggings": "Squire Armor",
+                            "boots": "Squire Armor",
+                            "pet": "Bee",
+                            "main_weapon": "Squire Sword",
+                            "min_skill1": "Combat 5",
+                            "min_skill2": "-",
+                            "min_skill3": "70 Fairy Souls",
+                            "ability_item1": "Radiant Power Orb",
+                            "ability_item2": "Healing Wand",
+                            "children": [{
+                                "name": "t2 Rev",
+                                "children": [{
+                                    "name": "t3 Rev",
+                                }],
+                            }, {
+                                "name": "t1 Tara",
+                                "children": [{
+                                    "name": "t2 Tara",
+                                }],
+
+                            }]
+                        }]
+                    }, {
+                        "name": "Dungeoneer",
+                        "helmet": "Ender Armor",
+                        "chestplate": "Ender Armor",
+                        "leggings": "Ender Armor",
+                        "boots": "Ender Armor",
+                        "pet": "Enderman",
+                        "main_weapon": "Raiders Axe",
+                        "min_skill1": "Combat 15",
+                        "min_skill2": "-",
+                        "min_skill3": "120 Fairy Souls",
+                        "ability_item1": "Radiant Power Orb",
+                        "ability_item2": "Healing Wand",
+                        "ability_item3": "Ender Pearls",
+                        "ability_item4": "-",
+                        "children": [{
+                            "name": "f1 Healer"
+                        }, {
+                            "name": "f1 Mage"
+                        }, {
+                            "name": "f1 Berserk"
+                        }, {
+                            "name": "f1 Archer"
+                        }, {
+                            "name": "f1 Tank"
+                        }],
+                    }]
+                }, {
+                    "name": "Gatherer",
+                    "helmet": "Farmer",
+                    "chestplate": "Farmer",
+                    "leggings": "Farmer",
+                    "boots": "Farmer",
+                    "pet": "Bee",
+                    "main_weapon": "Undead Sword",
+                    "min_skill1": "-",
+                    "min_skill2": "-",
+                    "min_skill3": "70 Fairy Souls",
+                    "ability_item1": "Diamond Pickaxe",
+                    "ability_item2": "-",
+                    "ability_item3": "-",
+                    "ability_item4": "-",
+                    "children": [{
+                        "name": "Miner",
+                    }, {
+                        "name": "Farmer",
+                    }]
+                }]
+            }]
+        };
+
+        // variables to alter appearance
+
+
+        const boxSize = 100;
+        const extraBoxWidth = 80;
+
+        const width = window.screen.width;
+        const height = window.screen.height;
+
+
+        // visualize diagram
+
+        const svg = d3.select("svg");
+
+        const client_width = document.body.clientWidth;
+        const client_height = document.body.clientHeight;
+
+        const margin = {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+        };
+
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+
+
+        var first = true;
+        const scale = Math.min(client_height / (height + boxSize * 2), client_width / width);
+
+        const treeLayout = d3.tree()
+            .size([innerWidth, innerHeight]);
+
+        const zoomG = svg
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("class", "zoomG")
+            .attr("transform", "translate(" + 0 + "," + 0 + ") scale (" + scale + ")");
+
+        const g = zoomG.append("g")
+            .attr("transform", "translate(" + margin.left + "," + (margin.top + boxSize) + ")");
+
+        svg.call(d3.zoom().on("zoom", function(d) {
+            if (first) {
+                d.transform.k = d.transform.k * scale;
+                first = false;
+            }
+            zoomG.attr("transform", d.transform);
+        }));
+
+        const root = d3.hierarchy(data);
+        const nodes = root.descendants();
+        const links = treeLayout(root).links();
+        const linkPathGenerator = d3.linkVertical()
+            .x(function(d) {
+                return d.x;
+            })
+            .y(function(d) {
+                return height - d.y;
+            });
+
+        // paths
+        g.selectAll("path").data(links)
+            .enter().append("path")
+            .attr("d", linkPathGenerator);
+
+        // node
+        const rectSize = boxSize;
+        g.selectAll(".node").data(nodes)
+            .enter().append("rect")
+            .attr("class", "box")
+            .attr("width", rectSize + extraBoxWidth)
+            .attr("height", rectSize)
+            .attr("transform", function(d) {
+                return "translate(" + (d.x - (rectSize + extraBoxWidth) / 2) + "," + (height - d.y - rectSize / 2) + ")";
+            });
+
+        // text
+        g.selectAll("text").data(nodes)
+            .enter().append("text")
+            .attr("class", "title")
+            .attr("x", function(d) {
+                return d.x;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "-2.2em")
+            .text(function(d) {
+                return d.data.name;
+            });
+
+        // helmet
+        g.selectAll(".node").data(nodes)
+            .enter().append("text")
+            .attr("class", "info-text")
+            .attr("x", function(d) {
+                return d.x - (boxSize + extraBoxWidth) / 4;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "-2.5em")
+            .text(function(d) {
+                return d.data.helmet ?? "-";
+            });
+
+        // chestplate
+        g.selectAll(".node").data(nodes)
+            .enter().append("text")
+            .attr("class", "info-text")
+            .attr("x", function(d) {
+                return d.x - (boxSize + extraBoxWidth) / 4;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "-1.5em")
+            .text(function(d) {
+                return d.data.chestplate ?? "-";
+            });
+
+        // leggings
+        g.selectAll(".node").data(nodes)
+            .enter().append("text")
+            .attr("class", "info-text")
+            .attr("x", function(d) {
+                return d.x - (boxSize + extraBoxWidth) / 4;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "-0.5em")
+            .text(function(d) {
+                return d.data.leggings ?? "-";
+            });
+
+        // boots
+        g.selectAll(".node").data(nodes)
+            .enter().append("text")
+            .attr("class", "info-text")
+            .attr("x", function(d) {
+                return d.x - (boxSize + extraBoxWidth) / 4;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "0.5em")
+            .text(function(d) {
+                return d.data.boots ?? "-";
+            });
+
+        // pet
+        g.selectAll(".node").data(nodes)
+            .enter().append("text")
+            .attr("class", "info-text")
+            .attr("x", function(d) {
+                return d.x - (boxSize + extraBoxWidth) / 4;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "2.5em")
+            .text(function(d) {
+                return d.data.pet ?? "-";
+            });
+
+        // main_weapon
+        g.selectAll(".node").data(nodes)
+            .enter().append("text")
+            .attr("class", "info-text")
+            .attr("x", function(d) {
+                return d.x - (boxSize + extraBoxWidth) / 4;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "4.5em")
+            .text(function(d) {
+                return d.data.main_weapon ?? "-";
+            });
+
+        // min_skill1
+        g.selectAll(".node").data(nodes)
+            .enter().append("text")
+            .attr("class", "info-text")
+            .attr("x", function(d) {
+                return d.x + (boxSize + extraBoxWidth) / 4;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "-2.5em")
+            .text(function(d) {
+                return d.data.min_skill1 ?? "-";
+            });
+
+        // min_skill2
+        g.selectAll(".node").data(nodes)
+            .enter().append("text")
+            .attr("class", "info-text")
+            .attr("x", function(d) {
+                return d.x + (boxSize + extraBoxWidth) / 4;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "-1.5em")
+            .text(function(d) {
+                return d.data.min_skill2 ?? "-";
+            });
+
+        // min_skill3
+        g.selectAll(".node").data(nodes)
+            .enter().append("text")
+            .attr("class", "info-text")
+            .attr("x", function(d) {
+                return d.x + (boxSize + extraBoxWidth) / 4;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "-0.5em")
+            .text(function(d) {
+                return d.data.min_skill3 ?? "-";
+            });
+
+        // ability_item1
+        g.selectAll(".node").data(nodes)
+            .enter().append("text")
+            .attr("class", "info-text")
+            .attr("x", function(d) {
+                return d.x + (boxSize + extraBoxWidth) / 4;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "4.5em")
+            .text(function(d) {
+                return d.data.ability_item1 ?? "-";
+            });
+
+        // ability_item2
+        g.selectAll(".node").data(nodes)
+            .enter().append("text")
+            .attr("class", "info-text")
+            .attr("x", function(d) {
+                return d.x + (boxSize + extraBoxWidth) / 4;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "3.5em")
+            .text(function(d) {
+                return d.data.ability_item2 ?? "-";
+            });
+
+        // ability_item3
+        g.selectAll(".node").data(nodes)
+            .enter().append("text")
+            .attr("class", "info-text")
+            .attr("x", function(d) {
+                return d.x + (boxSize + extraBoxWidth) / 4;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "2.5em")
+            .text(function(d) {
+                return d.data.ability_item3 ?? "-";
+            });
+
+        // ability_item4
+        g.selectAll(".node").data(nodes)
+            .enter().append("text")
+            .attr("class", "info-text")
+            .attr("x", function(d) {
+                return d.x + (boxSize + extraBoxWidth) / 4;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "1.5em")
+            .text(function(d) {
+                return d.data.ability_item4;
+            });
+
+    </script>
+</body>
+
+</html>
