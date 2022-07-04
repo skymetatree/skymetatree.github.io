@@ -42,3 +42,11 @@ text {
     pointer-events: none;
     font-family: 'Consolas', serif;
 }
+
+.money-text {
+    fill: black;
+    font-size: 0.5em;
+    text-anchor: middle;
+    pointer-events: none;
+    font-family: 'Consolas', serif;
+}
