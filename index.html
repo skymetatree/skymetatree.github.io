@@ -53,9 +53,22 @@
                     "ability_item1": "Radiant Power Orb",
                     "ability_item2": "Healing Wand",
                     "children": [{
-                        "name": "Kuudra"
+                        "name": "Kuudra",
+                        "children": [{
+                            "name": "t1 Cannonier",
+                            "children": [{
+                                "name": "t2 Cannonier",
+                            }],
+                        }, {
+                            "name": "t1 Mage",
+                            "children": [{
+                                "name": "t2 Mage",
+                            }, {
+                                "name": "t2 Archer",
+                            }],
+                        }],
                     }, {
-                        "name": "Slayer",
+                        "name": "Slayer - t1 Rev",
                         "helmet": "Squire Armor",
                         "chestplate": "Squire Armor",
                         "leggings": "Squire Armor",
@@ -65,30 +78,70 @@
                         "min_skill1": "Combat 5",
                         "min_skill2": "-",
                         "min_skill3": "70 Fairy Souls",
-                        "ability_item1": "Radiant Power Orb",
-                        "ability_item2": "Healing Wand",
                         "children": [{
-                            "name": "t1 Rev",
+                            "name": "t2 Rev",
                             "helmet": "Squire Armor",
                             "chestplate": "Squire Armor",
                             "leggings": "Squire Armor",
                             "boots": "Squire Armor",
                             "pet": "Bee",
                             "main_weapon": "Squire Sword",
-                            "min_skill1": "Combat 5",
+                            "min_skill1": "Combat 10",
                             "min_skill2": "-",
-                            "min_skill3": "70 Fairy Souls",
-                            "ability_item1": "Radiant Power Orb",
-                            "ability_item2": "Healing Wand",
+                            "min_skill3": "100 Fairy Souls",
+                            "ability_item1": "Healing Wand",
                             "children": [{
-                                "name": "t2 Rev",
+                                "name": "t3 Rev",
                                 "children": [{
-                                    "name": "t3 Rev",
+                                    "name": "t4 Rev",
+                                    "children": [{
+                                        "name": "t5 Rev",
+                                    }],
                                 }],
                             }, {
                                 "name": "t1 Tara",
                                 "children": [{
                                     "name": "t2 Tara",
+                                    "children": [{
+                                        "name": "t3 Tara",
+                                        "children": [{
+                                            "name": "t4 Tara",
+                                        }],
+                                    }, {
+                                        "name": "t1 Sven",
+                                        "children": [{
+                                            "name": "t2 Sven",
+                                            "children": [{
+                                                "name": "t3 Sven",
+                                                "children": [{
+                                                    "name": "t4 Sven",
+                                                    "children": [{
+                                                        "name": "t1 Voidgloom",
+                                                        "children": [{
+                                                            "name": "t2 Voidgloom",
+                                                            "children": [{
+                                                                "name": "t3 Voidgloom",
+                                                                "children": [{
+                                                                    "name": "t4 Voidgloom",
+                                                                }, {
+                                                                    "name": "t1 Inferno",
+                                                                    "children": [{
+                                                                        "name": "t2 Inferno",
+                                                                        "children": [{
+                                                                            "name": "t3 Inferno",
+                                                                            "children": [{
+                                                                                "name": "t4 Inferno",
+                                                                            }],
+                                                                        }],
+                                                                    }],
+                                                                }],
+                                                            }],
+                                                        }],
+                                                    }],
+                                                }],
+                                            }],
+                                        }],
+                                    }],
                                 }],
 
                             }]
@@ -351,7 +404,7 @@
         const boxSize = 100;
         const extraBoxWidth = 80;
 
-        const width = window.screen.width * 2;
+        const width = window.screen.width * 3;
         const height = window.screen.height * 2;
 
 
@@ -648,8 +701,5 @@
             .text(function(d) {
                 return d.data.money ?? "-";
             });
-
     </script>
-</body>
-
-</html>
+</body></html>
