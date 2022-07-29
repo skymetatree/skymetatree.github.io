@@ -11,7 +11,7 @@ body {
 
 path {
     fill: none;
-    stroke: grey;
+    stroke: #3b3b3b;
     stroke-width: 4
 }
 
@@ -22,7 +22,7 @@ text {
 }
 
 .box {
-    fill: grey;
+    fill: #898989;
     pointer-events: none;
     font-family: 'Consolas', serif;
 }
@@ -52,15 +52,15 @@ text {
 }
 
 .item-text-uncommon {
+    fill: #40bb40;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
     font-family: 'Consolas', serif;
-    fill: #0fe00f;
 }
 
 .item-text-rare {
-    fill: blue;
+    fill: #4444f3;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
@@ -68,7 +68,7 @@ text {
 }
 
 .item-text-epic {
-    fill: purple;
+    fill: #a305a3;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
@@ -76,7 +76,15 @@ text {
 }
 
 .item-text-legendary {
-    fill: gold;
+    fill: #d88f07;
+    font-size: 0.5em;
+    text-anchor: middle;
+    pointer-events: none;
+    font-family: 'Consolas', serif;
+}
+
+.item-text-mythic {
+    fill: #e668c6;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
@@ -84,7 +92,7 @@ text {
 }
 
 .item-text-divine {
-    fill: lightblue;
+    fill: #33aec3;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
@@ -92,7 +100,7 @@ text {
 }
 
 .item-text-special {
-    fill: darkred;
+    fill: #c43c3c;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
@@ -100,7 +108,7 @@ text {
 }
 
 .item-text-very-special {
-    fill: darkred;
+    fill: #c43c3c;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
