@@ -468,8 +468,10 @@
 
         // node
         const rectSize = boxSize;
-        g.selectAll(".node").data(nodes)
-            .enter().append("rect")
+        var node = g.selectAll(".node").data(nodes).enter();
+
+        // boxes
+        node.append("rect")
             .attr("class", "box")
             .attr("width", rectSize + extraBoxWidth)
             .attr("height", rectSize)
@@ -478,8 +480,7 @@
             });
 
         // text
-        g.selectAll("text").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "title")
             .attr("x", function(d) {
                 return d.x;
@@ -493,8 +494,7 @@
             });
 
         // helmet
-        g.selectAll(".node").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "info-text")
             .attr("x", function(d) {
                 return d.x - (boxSize + extraBoxWidth) / 4;
@@ -508,8 +508,7 @@
             });
 
         // chestplate
-        g.selectAll(".node").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "info-text")
             .attr("x", function(d) {
                 return d.x - (boxSize + extraBoxWidth) / 4;
@@ -523,8 +522,7 @@
             });
 
         // leggings
-        g.selectAll(".node").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "info-text")
             .attr("x", function(d) {
                 return d.x - (boxSize + extraBoxWidth) / 4;
@@ -538,8 +536,7 @@
             });
 
         // boots
-        g.selectAll(".node").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "info-text")
             .attr("x", function(d) {
                 return d.x - (boxSize + extraBoxWidth) / 4;
@@ -553,8 +550,7 @@
             });
 
         // pet
-        g.selectAll(".node").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "info-text")
             .attr("x", function(d) {
                 return d.x - (boxSize + extraBoxWidth) / 4;
@@ -568,8 +564,7 @@
             });
 
         // main_weapon
-        g.selectAll(".node").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "info-text")
             .attr("x", function(d) {
                 return d.x - (boxSize + extraBoxWidth) / 4;
@@ -583,8 +578,7 @@
             });
 
         // min_skill1
-        g.selectAll(".node").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "info-text")
             .attr("x", function(d) {
                 return d.x + (boxSize + extraBoxWidth) / 4;
@@ -598,8 +592,7 @@
             });
 
         // min_skill2
-        g.selectAll(".node").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "info-text")
             .attr("x", function(d) {
                 return d.x + (boxSize + extraBoxWidth) / 4;
@@ -613,8 +606,7 @@
             });
 
         // min_skill3
-        g.selectAll(".node").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "info-text")
             .attr("x", function(d) {
                 return d.x + (boxSize + extraBoxWidth) / 4;
@@ -628,8 +620,7 @@
             });
 
         // ability_item1
-        g.selectAll(".node").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "info-text")
             .attr("x", function(d) {
                 return d.x + (boxSize + extraBoxWidth) / 4;
@@ -643,8 +634,7 @@
             });
 
         // ability_item2
-        g.selectAll(".node").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "info-text")
             .attr("x", function(d) {
                 return d.x + (boxSize + extraBoxWidth) / 4;
@@ -658,8 +648,7 @@
             });
 
         // ability_item3
-        g.selectAll(".node").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "info-text")
             .attr("x", function(d) {
                 return d.x + (boxSize + extraBoxWidth) / 4;
@@ -673,8 +662,7 @@
             });
 
         // ability_item4
-        g.selectAll(".node").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "info-text")
             .attr("x", function(d) {
                 return d.x + (boxSize + extraBoxWidth) / 4;
@@ -688,8 +676,7 @@
             });
 
         // money
-        g.selectAll(".node").data(nodes)
-            .enter().append("text")
+        node.append("text")
             .attr("class", "money-text")
             .attr("x", function(d) {
                 return d.x;
