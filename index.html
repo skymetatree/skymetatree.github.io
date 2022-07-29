@@ -30,28 +30,28 @@
             "money": "Wheat - 30k/h",
             "children": [{
                 "name": "Rookie",
-                "helmet": "Farmer Suit",
-                "chestplate": "Farmer Suit",
-                "leggings": "Farmer Suit",
-                "boots": "Farmer Suit",
-                "pet": "Bee",
-                "main_weapon": "Undead Sword",
-                "ability_item1": "Iron Pickaxe",
-                "ability_item2": "Rookie Hoe",
+                "helmet": "&cFarmer Suit",
+                "chestplate": "&cFarmer Suit",
+                "leggings": "&cFarmer Suit",
+                "boots": "&cFarmer Suit",
+                "pet": "&cBee",
+                "main_weapon": "&cUndead Sword",
+                "ability_item1": "&cIron Pickaxe",
+                "ability_item2": "&cRookie Hoe",
                 "money": "Wheat - 40k/h",
                 "children": [{
                     "name": "Fighter",
-                    "helmet": "Squire Armor",
-                    "chestplate": "Squire Armor",
-                    "leggings": "Squire Armor",
-                    "boots": "Squire Armor",
-                    "pet": "Bee",
-                    "main_weapon": "Squire Sword",
+                    "helmet": "&uSquire Armor",
+                    "chestplate": "&uSquire Armor",
+                    "leggings": "&uSquire Armor",
+                    "boots": "&uSquire Armor",
+                    "pet": "&cBee",
+                    "main_weapon": "&uSquire Sword",
                     "min_skill1": "Combat 5",
                     "min_skill2": "-",
                     "min_skill3": "70 Fairy Souls",
-                    "ability_item1": "Radiant Power Orb",
-                    "ability_item2": "Healing Wand",
+                    "ability_item1": "&uRadiant Power Orb",
+                    "ability_item2": "&uWand of Healing",
                     "children": [{
                         "name": "Kuudra",
                         "children": [{
@@ -69,27 +69,27 @@
                         }],
                     }, {
                         "name": "Slayer - t1 Rev",
-                        "helmet": "Squire Armor",
-                        "chestplate": "Squire Armor",
-                        "leggings": "Squire Armor",
-                        "boots": "Squire Armor",
+                        "helmet": "&uSquire Armor",
+                        "chestplate": "&uSquire Armor",
+                        "leggings": "&uSquire Armor",
+                        "boots": "&uSquire Armor",
                         "pet": "Bee",
-                        "main_weapon": "Squire Sword",
+                        "main_weapon": "&uSquire Sword",
                         "min_skill1": "Combat 5",
                         "min_skill2": "-",
                         "min_skill3": "70 Fairy Souls",
                         "children": [{
                             "name": "t2 Rev",
-                            "helmet": "Squire Armor",
-                            "chestplate": "Squire Armor",
-                            "leggings": "Squire Armor",
-                            "boots": "Squire Armor",
+                            "helmet": "&uSquire Armor",
+                            "chestplate": "&uSquire Armor",
+                            "leggings": "&uSquire Armor",
+                            "boots": "&uSquire Armor",
                             "pet": "Bee",
-                            "main_weapon": "Squire Sword",
+                            "main_weapon": "&uSquire Sword",
                             "min_skill1": "Combat 10",
                             "min_skill2": "-",
                             "min_skill3": "100 Fairy Souls",
-                            "ability_item1": "Healing Wand",
+                            "ability_item1": "&uWand of Healing",
                             "children": [{
                                 "name": "t3 Rev",
                                 "children": [{
@@ -148,18 +148,18 @@
                         }]
                     }, {
                         "name": "Dungeoneer",
-                        "helmet": "Ender Armor",
-                        "chestplate": "Ender Armor",
-                        "leggings": "Ender Armor",
-                        "boots": "Ender Armor",
-                        "pet": "Enderman",
-                        "main_weapon": "Raiders Axe",
+                        "helmet": "&eEnder Armor",
+                        "chestplate": "&eEnder Armor",
+                        "leggings": "&eEnder Armor",
+                        "boots": "&eEnder Armor",
+                        "pet": "&eEnderman",
+                        "main_weapon": "&rRaiders Axe",
                         "min_skill1": "Combat 15",
                         "min_skill2": "-",
                         "min_skill3": "120 Fairy Souls",
-                        "ability_item1": "Radiant Power Orb",
-                        "ability_item2": "Healing Wand",
-                        "ability_item3": "Ender Pearls",
+                        "ability_item1": "&uRadiant Power Orb",
+                        "ability_item2": "&uWand of Healing",
+                        "ability_item3": "&cEnder Pearls",
                         "ability_item4": "-",
                         "children": [{
                             "name": "f1 Healer",
@@ -370,16 +370,16 @@
                     }]
                 }, {
                     "name": "Gatherer",
-                    "helmet": "Farmer",
-                    "chestplate": "Farmer",
-                    "leggings": "Farmer",
-                    "boots": "Farmer",
-                    "pet": "Bee",
-                    "main_weapon": "Undead Sword",
+                    "helmet": "&cFarmer",
+                    "chestplate": "&cFarmer",
+                    "leggings": "&cFarmer",
+                    "boots": "&cFarmer",
+                    "pet": "&cBee",
+                    "main_weapon": "&cUndead Sword",
                     "min_skill1": "-",
                     "min_skill2": "-",
                     "min_skill3": "70 Fairy Souls",
-                    "ability_item1": "Diamond Pickaxe",
+                    "ability_item1": "&uDiamond Pickaxe",
                     "ability_item2": "-",
                     "ability_item3": "-",
                     "ability_item4": "-",
@@ -495,7 +495,9 @@
 
         // helmet
         node.append("text")
-            .attr("class", "info-text")
+            .attr("class", function(d) {
+                return getItemRarity(d.data.helmet);
+            })
             .attr("x", function(d) {
                 return d.x - (boxSize + extraBoxWidth) / 4;
             })
@@ -504,12 +506,14 @@
             })
             .attr("dy", "-2.7em")
             .text(function(d) {
-                return d.data.helmet ?? "-";
+                return getItemText(d.data.helmet) ?? "-";
             });
 
         // chestplate
         node.append("text")
-            .attr("class", "info-text")
+            .attr("class", function(d) {
+                return getItemRarity(d.data.chestplate);
+            })
             .attr("x", function(d) {
                 return d.x - (boxSize + extraBoxWidth) / 4;
             })
@@ -518,12 +522,14 @@
             })
             .attr("dy", "-1.7em")
             .text(function(d) {
-                return d.data.chestplate ?? "-";
+                return getItemText(d.data.chestplate) ?? "-";
             });
 
         // leggings
         node.append("text")
-            .attr("class", "info-text")
+            .attr("class", function(d) {
+                return getItemRarity(d.data.leggings);
+            })
             .attr("x", function(d) {
                 return d.x - (boxSize + extraBoxWidth) / 4;
             })
@@ -532,12 +538,14 @@
             })
             .attr("dy", "-0.7em")
             .text(function(d) {
-                return d.data.leggings ?? "-";
+                return getItemText(d.data.leggings) ?? "-";
             });
 
         // boots
         node.append("text")
-            .attr("class", "info-text")
+            .attr("class", function(d) {
+                return getItemRarity(d.data.boots);
+            })
             .attr("x", function(d) {
                 return d.x - (boxSize + extraBoxWidth) / 4;
             })
@@ -546,12 +554,14 @@
             })
             .attr("dy", "0.3em")
             .text(function(d) {
-                return d.data.boots ?? "-";
+                return getItemText(d.data.boots) ?? "-";
             });
 
         // pet
         node.append("text")
-            .attr("class", "info-text")
+            .attr("class", function(d) {
+                return getItemRarity(d.data.pet);
+            })
             .attr("x", function(d) {
                 return d.x - (boxSize + extraBoxWidth) / 4;
             })
@@ -560,12 +570,14 @@
             })
             .attr("dy", "2.3em")
             .text(function(d) {
-                return d.data.pet ?? "-";
+                return getItemText(d.data.pet) ?? "-";
             });
 
         // main_weapon
         node.append("text")
-            .attr("class", "info-text")
+            .attr("class", function(d) {
+                return getItemRarity(d.data.main_weapon);
+            })
             .attr("x", function(d) {
                 return d.x - (boxSize + extraBoxWidth) / 4;
             })
@@ -574,12 +586,14 @@
             })
             .attr("dy", "4.3em")
             .text(function(d) {
-                return d.data.main_weapon ?? "-";
+                return getItemText(d.data.main_weapon) ?? "-";
             });
 
         // min_skill1
         node.append("text")
-            .attr("class", "info-text")
+            .attr("class", function(d) {
+                return getItemRarity(d.data.min_skill1);
+            })
             .attr("x", function(d) {
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
@@ -588,12 +602,14 @@
             })
             .attr("dy", "-2.7em")
             .text(function(d) {
-                return d.data.min_skill1 ?? "-";
+                return getItemText(d.data.min_skill1) ?? "-";
             });
 
         // min_skill2
         node.append("text")
-            .attr("class", "info-text")
+            .attr("class", function(d) {
+                return getItemRarity(d.data.min_skill2);
+            })
             .attr("x", function(d) {
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
@@ -602,12 +618,14 @@
             })
             .attr("dy", "-1.7em")
             .text(function(d) {
-                return d.data.min_skill2 ?? "-";
+                return getItemText(d.data.min_skill2) ?? "-";
             });
 
         // min_skill3
         node.append("text")
-            .attr("class", "info-text")
+            .attr("class", function(d) {
+                return getItemRarity(d.data.min_skill3);
+            })
             .attr("x", function(d) {
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
@@ -616,12 +634,14 @@
             })
             .attr("dy", "-0.7em")
             .text(function(d) {
-                return d.data.min_skill3 ?? "-";
+                return getItemText(d.data.min_skill3) ?? "-";
             });
 
         // ability_item1
         node.append("text")
-            .attr("class", "info-text")
+            .attr("class", function(d) {
+                return getItemRarity(d.data.ability_item1);
+            })
             .attr("x", function(d) {
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
@@ -630,12 +650,14 @@
             })
             .attr("dy", "4.3em")
             .text(function(d) {
-                return d.data.ability_item1 ?? "-";
+                return getItemText(d.data.ability_item1) ?? "-";
             });
 
         // ability_item2
         node.append("text")
-            .attr("class", "info-text")
+            .attr("class", function(d) {
+                return getItemRarity(d.data.ability_item2);
+            })
             .attr("x", function(d) {
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
@@ -644,12 +666,14 @@
             })
             .attr("dy", "3.3em")
             .text(function(d) {
-                return d.data.ability_item2 ?? "-";
+                return getItemText(d.data.ability_item2) ?? "-";
             });
 
         // ability_item3
         node.append("text")
-            .attr("class", "info-text")
+            .attr("class", function(d) {
+                return getItemRarity(d.data.ability_item3);
+            })
             .attr("x", function(d) {
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
@@ -658,12 +682,14 @@
             })
             .attr("dy", "2.3em")
             .text(function(d) {
-                return d.data.ability_item3 ?? "-";
+                return getItemText(d.data.ability_item3) ?? "-";
             });
 
         // ability_item4
         node.append("text")
-            .attr("class", "info-text")
+            .attr("class", function(d) {
+                return getItemRarity(d.data.ability_item4);
+            })
             .attr("x", function(d) {
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
@@ -672,7 +698,7 @@
             })
             .attr("dy", "1.3em")
             .text(function(d) {
-                return d.data.ability_item4 ?? "-";
+                return getItemText(d.data.ability_item4) ?? "-";
             });
 
         // money
@@ -688,5 +714,44 @@
             .text(function(d) {
                 return d.data.money ?? "-";
             });
+
+        function getItemRarity(itemName) {
+            if (itemName === undefined)
+                return "info-text";
+            if (itemName && itemName.length < 2)
+                return "info-text";
+            switch (itemName.substring(0, 2)) {
+                case '&c':
+                    return "item-text-common";
+                case '&u':
+                    return "item-text-uncommon";
+                case '&r':
+                    return "item-text-rare";
+                case '&e':
+                    return "item-text-epic";
+                case '&l':
+                    return "item-text-legendary";
+                case '&m':
+                    return "item-text-divine";
+                case '&s':
+                    return "item-text-special";
+                case '&v':
+                    return "item-text-very-special";
+                default:
+                    return "info-text";
+            }
+        }
+
+        function getItemText(itemName) {
+            if (itemName === undefined)
+                return itemName;
+            if (itemName && itemName.length < 2)
+                return itemName;
+            if (itemName[0] == '&') {
+                return itemName.substring(2);
+            } else {
+                return itemName;
+            }
+        }
     </script>
 </body></html>

@@ -11,7 +11,7 @@ body {
 
 path {
     fill: none;
-    stroke: #56c2a3;
+    stroke: grey;
     stroke-width: 4
 }
 
@@ -22,7 +22,7 @@ text {
 }
 
 .box {
-    fill: steelblue;
+    fill: grey;
     pointer-events: none;
     font-family: 'Consolas', serif;
 }
@@ -43,10 +43,73 @@ text {
     font-family: 'Consolas', serif;
 }
 
-.money-text {
-    fill: black;
+.item-text-common {
+    fill: white;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
     font-family: 'Consolas', serif;
+}
+
+.item-text-uncommon {
+    font-size: 0.5em;
+    text-anchor: middle;
+    pointer-events: none;
+    font-family: 'Consolas', serif;
+    fill: #0fe00f;
+}
+
+.item-text-rare {
+    fill: blue;
+    font-size: 0.5em;
+    text-anchor: middle;
+    pointer-events: none;
+    font-family: 'Consolas', serif;
+}
+
+.item-text-epic {
+    fill: purple;
+    font-size: 0.5em;
+    text-anchor: middle;
+    pointer-events: none;
+    font-family: 'Consolas', serif;
+}
+
+.item-text-legendary {
+    fill: gold;
+    font-size: 0.5em;
+    text-anchor: middle;
+    pointer-events: none;
+    font-family: 'Consolas', serif;
+}
+
+.item-text-divine {
+    fill: lightblue;
+    font-size: 0.5em;
+    text-anchor: middle;
+    pointer-events: none;
+    font-family: 'Consolas', serif;
+}
+
+.item-text-special {
+    fill: darkred;
+    font-size: 0.5em;
+    text-anchor: middle;
+    pointer-events: none;
+    font-family: 'Consolas', serif;
+}
+
+.item-text-very-special {
+    fill: darkred;
+    font-size: 0.5em;
+    text-anchor: middle;
+    pointer-events: none;
+    font-family: 'Consolas', serif;
+}
+
+.money-text {
+    @extend .info-text;
+    fill: black;
+    font-size: 0.5em;
+    text-anchor: middle;
 }
