@@ -22,13 +22,13 @@ text {
 }
 
 .box {
-    fill: #898989;
+    fill: #8d8d8d;
     pointer-events: none;
     font-family: 'Consolas', serif;
 }
 
 .title {
-    fill: yellow;
+    fill: #000090;
     font-size: 1em;
     text-anchor: middle;
     pointer-events: none;
@@ -52,7 +52,7 @@ text {
 }
 
 .item-text-uncommon {
-    fill: #40bb40;
+    fill: #2ed92e;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
@@ -60,7 +60,7 @@ text {
 }
 
 .item-text-rare {
-    fill: #4444f3;
+    fill: #2828f8;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
@@ -68,7 +68,7 @@ text {
 }
 
 .item-text-epic {
-    fill: #a305a3;
+    fill: #8d008d;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;

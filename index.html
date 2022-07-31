@@ -473,6 +473,7 @@
         // boxes
         node.append("rect")
             .attr("class", "box")
+            .attr("rx", rectSize / 15)
             .attr("width", rectSize + extraBoxWidth)
             .attr("height", rectSize)
             .attr("transform", function(d) {
