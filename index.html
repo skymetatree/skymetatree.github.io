@@ -170,6 +170,72 @@
                             }]
                         }]
                     }, {
+                        "name": "Spider Fighter",
+                        "children": [{
+                            "name": "Ender Fighter",
+                            "children": [{
+                                "name": "Zealot Fighter",
+                                "helmet": "&eEnder Armor",
+                                "chestplate": "&eEnder Armor",
+                                "leggings": "&eEnder Armor",
+                                "boots": "&eEnder Armor",
+                                "pet": "&eEnderman",
+                                "main_weapon": "&rRaiders Axe",
+                                "min_skill1": "Combat 15",
+                                "min_skill3": "120 Fairy Souls",
+                                "min_skill4": "100 MP - Warrior",
+                                "ability_item1": "&uRadiant Power Orb",
+                                "ability_item2": "&uWand of Healing",
+                                "ability_item3": "-",
+                                "ability_item4": "-",
+                                "money": "???",
+                                "cost": "???",
+                                "children": [{
+                                    "name": "Zealot Farmer",
+                                    "helmet": "&lWise Young Dragon",
+                                    "chestplate": "&lWise Young Dragon",
+                                    "leggings": "&lWise Young Dragon",
+                                    "boots": "&lWise Young Dragon",
+                                    "pet": "&eEnderman",
+                                    "main_weapon": "&rAspect of the End",
+                                    "min_skill1": "Combat 15",
+                                    "min_skill3": "180 Fairy Souls",
+                                    "min_skill4": "100 MP - Warrior",
+                                    "ability_item1": "&uRadiant Power Orb",
+                                    "ability_item2": "&uWand of Healing",
+                                    "ability_item3": "-",
+                                    "ability_item4": "-",
+                                    "money": "Sum Eyes - 3m/h",
+                                    "cost": "???",
+                                    "children": [{
+                                        "name": "Zealot Sniper",
+                                    }],
+                                }],
+                            }, {
+                                "name": "Crystal Frag Leecher",
+                                "helmet": "&eEnder Armor",
+                                "chestplate": "&eEnder Armor",
+                                "leggings": "&eEnder Armor",
+                                "boots": "&eEnder Armor",
+                                "pet": "&eEnderman",
+                                "main_weapon": "&lRunaans Bow",
+                                "min_skill1": "Combat 15",
+                                "min_skill3": "120 Fairy Souls",
+                                "ability_item1": "&uRadiant Power Orb",
+                                "ability_item2": "&uWand of Healing",
+                                "ability_item3": "-",
+                                "ability_item4": "-",
+                                "money": "Crystal Fragments - 400k/h ???",
+                                "cost": "???",
+                                "children": [{
+                                    "name": "Dragon Fighter",
+                                    "children": [{
+                                        "name": "E-Drag Farmer",
+                                    }],
+                                }],
+                            }],
+                        }],
+                    }, {
                         "name": "Dungeoneer",
                         "helmet": "&eEnder Armor",
                         "chestplate": "&eEnder Armor",
@@ -456,6 +522,7 @@
                     "main_weapon": "&cUndead Sword",
                     "min_skill3": "70 Fairy Souls",
                     "ability_item1": "&uDiamond Pickaxe",
+                    "ability_item2": "&cRookie Hoe",
                     "money": "???",
                     "cost": "???",
                     "children": [{
@@ -469,6 +536,20 @@
                             "name": "Sugarcane Farmer"
                         }],
                     }]
+                }, {
+                    "name": "Fisher",
+                    "children": [{
+                        "name": "Fisher",
+                        "children": [{
+                            "name": "Fisher",
+                            "children": [{
+                                "name": "Fisher",
+                                "children": [{
+                                    "name": "Fisher",
+                                }],
+                            }],
+                        }],
+                    }],
                 }]
             }]
         };
@@ -713,6 +794,23 @@
                 return getItemText(d.data.min_skill3) ?? "-";
             });
 
+        // min_skill4
+        node.append("text")
+            .attr("class", function(d) {
+                return getItemRarity(d.data.min_skill4);
+            })
+            .attr("x", function(d) {
+                return d.x + (boxSize + extraBoxWidth) / 4;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", "0.3em")
+            .text(function(d) {
+                return getItemText(d.data.min_skill4) ?? "-";
+            });
+
+
         // ability_item1
         node.append("text")
             .attr("class", function(d) {
@@ -791,7 +889,7 @@
                 return d.data.money ?? "-";
             });
 
-        // money
+        // cost
         node.append("text")
             .attr("class", "money-text")
             .attr("x", function(d) {
