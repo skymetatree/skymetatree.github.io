@@ -9,6 +9,39 @@ body {
     background: black;
 }
 
+header {
+    background: #c9c9c9;
+}
+
+header::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+nav {
+    float: center;
+    font-family: monospace;
+}
+
+nav a {
+    color: #343434;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
 path {
     fill: none;
     stroke: #bababa;
