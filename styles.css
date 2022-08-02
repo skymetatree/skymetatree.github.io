@@ -22,7 +22,7 @@ text {
 }
 
 .box {
-    fill: #8d8d8d;
+    fill: #ffffff;
     pointer-events: none;
     font-family: 'Consolas', serif;
 }
@@ -36,7 +36,7 @@ text {
 }
 
 .info-text {
-    fill: white;
+    fill: #6c6c6c;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
@@ -44,7 +44,7 @@ text {
 }
 
 .item-text-common {
-    fill: white;
+    fill: #bababa;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
@@ -52,7 +52,7 @@ text {
 }
 
 .item-text-uncommon {
-    fill: #2ed92e;
+    fill: #48b948;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
@@ -76,7 +76,7 @@ text {
 }
 
 .item-text-legendary {
-    fill: #d88f07;
+    fill: #e09200;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
@@ -84,7 +84,7 @@ text {
 }
 
 .item-text-mythic {
-    fill: #e668c6;
+    fill: #ff57d4;
     font-size: 0.5em;
     text-anchor: middle;
     pointer-events: none;
