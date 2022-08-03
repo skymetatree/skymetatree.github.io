@@ -567,8 +567,9 @@
 
         // variables to alter appearance
 
-        const boxSize = 115;
-        const extraBoxWidth = 115;
+        const boxSize = 115; // TODO how does boxSize play into all those constants?
+        const extraBoxWidth = 115; // TODO how does extraBoxWidth play into all those constants?
+        const separation_ratio = 1.5; // TODO how does separation_ratio play into all those constants?
 
         // initialize svg, width and height
 
@@ -581,9 +582,9 @@
         const root = d3.hierarchy(data);
         const nodes = root.descendants();
         const treeLayout = d3.tree()
-            .nodeSize([boxSize + extraBoxWidth + boxSize / 5, boxSize + boxSize / 4 * 3])
+            .nodeSize([boxSize + extraBoxWidth + boxSize / 5, boxSize + boxSize / 4 * 3]) // TODO what do those constants do?
             .separation(function(a, b) {
-                return (a.parent == b.parent ? 1 : 1.5);
+                return (a.parent == b.parent ? 1 : separation_ratio);
             });
         const links = treeLayout(root).links();
 
