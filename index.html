@@ -586,13 +586,7 @@
                 return (a.parent == b.parent ? 1 : 1.5);
             });
         const links = treeLayout(root).links();
-        const linkPathGenerator = d3.linkVertical()
-            .x(function(d) {
-                return d.x;
-            })
-            .y(function(d) {
-                return height - d.y;
-            });
+
 
         // figure out size of the tree to calculate window fitting scale
         const x_positions = nodes.map(function(d) {
@@ -604,15 +598,26 @@
         }).sort();
         const diagram_height = Math.abs(y_positions[y_positions.length - 1] - y_positions[0]);
 
-        const scale = Math.min((height / diagram_height) * 0.2, (width / diagram_width) * 0.3) * ((height / diagram_height) < 1 ? 1 / ((height / diagram_height) * 1.7) : 1);
-        // TODO problems with the height adjustment on wide screeens
-        console.log(x_positions[0]);
-        console.log(y_positions[0]);
-        console.log(diagram_width);
-        console.log(diagram_height);
-        console.log(width);
-        console.log(height);
-        console.log(scale);
+        const x_scale = (width / diagram_width) * 0.3; // TODO why 0.3
+        const y_scale = (height / diagram_height) * 0.2; // TODO why 0.2
+        const scale = Math.min(x_scale, y_scale);
+
+        // TODO problems with the x adjustment on wide screeens
+        console.log("smallest x:     " + x_positions[0]);
+        console.log("diagram_width:  " + diagram_width);
+        console.log("client_width:   " + width);
+        console.log("scale x:        " + x_scale);
+        console.log("");
+        console.log("smallest y:     " + y_positions[0]);
+        console.log("diagram_height: " + diagram_height);
+        console.log("client_height:  " + height);
+        console.log("scale y:        " + y_scale);
+        console.log("");
+        console.log("scale:          " + scale);
+
+        const width_left_diag_wing = Math.abs(x_positions[0] - boxSize - extraBoxWidth / 2);
+        const width_right_diag_wing = Math.abs((diagram_width - width_left_diag_wing));
+        const diag_left_to_right_factor = (width_left_diag_wing / (width_left_diag_wing + width_right_diag_wing));
 
         // graphic objects
 
@@ -624,7 +629,10 @@
             .attr("transform", "translate(" + 0 + "," + 0 + ") scale (" + scale + ")");
 
         const g = zoomG.append("g")
-            .attr("transform", "translate(" + (width / 2 * (1 / scale) * 1.32) + "," + (height + diagram_height + boxSize * 7) * ((height / diagram_height) < 1 ? ((height / diagram_height) * 2.5) : 1) + ")");
+            .attr("transform", "translate(" + (width * diag_left_to_right_factor * (1 / x_scale)) + "," + 0 + ")");
+        // x * (1 / scale), (diagram_height) * (1 / scale)
+        // x: 605, 373
+        // y: 333, 248
 
         var first = true;
         svg.call(d3.zoom().on("zoom", function(d) {
@@ -634,10 +642,21 @@
             }
             zoomG.attr("transform", d.transform);
         }));
+        // TODO fix first drag like first zoom is fixed above
+
 
         // draw the diagram
 
+        const horizontal_flip_constant = diagram_height * 4.5; //// TODO why 4.5???
+
         // paths
+        const linkPathGenerator = d3.linkVertical()
+            .x(function(d) {
+                return d.x;
+            })
+            .y(function(d) {
+                return horizontal_flip_constant - d.y;
+            });
         g.selectAll("path").data(links)
             .enter().append("path")
             .attr("d", linkPathGenerator);
@@ -653,7 +672,7 @@
             .attr("width", rectSize + extraBoxWidth)
             .attr("height", rectSize)
             .attr("transform", function(d) {
-                return "translate(" + (d.x - (rectSize + extraBoxWidth) / 2) + "," + (height - d.y - rectSize / 2) + ")";
+                return "translate(" + (d.x - (rectSize + extraBoxWidth) / 2) + "," + (horizontal_flip_constant - d.y - rectSize / 2) + ")";
             });
 
         // text
@@ -663,7 +682,7 @@
                 return d.x;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "-2.2em")
             .text(function(d) {
@@ -679,7 +698,7 @@
                 return d.x - (boxSize + extraBoxWidth) / 4;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "-2.7em")
             .text(function(d) {
@@ -695,7 +714,7 @@
                 return d.x - (boxSize + extraBoxWidth) / 4;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "-1.7em")
             .text(function(d) {
@@ -711,7 +730,7 @@
                 return d.x - (boxSize + extraBoxWidth) / 4;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "-0.7em")
             .text(function(d) {
@@ -727,7 +746,7 @@
                 return d.x - (boxSize + extraBoxWidth) / 4;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "0.3em")
             .text(function(d) {
@@ -743,7 +762,7 @@
                 return d.x - (boxSize + extraBoxWidth) / 4;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "2.3em")
             .text(function(d) {
@@ -759,7 +778,7 @@
                 return d.x - (boxSize + extraBoxWidth) / 4;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "4.3em")
             .text(function(d) {
@@ -775,7 +794,7 @@
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "-2.7em")
             .text(function(d) {
@@ -791,7 +810,7 @@
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "-1.7em")
             .text(function(d) {
@@ -807,7 +826,7 @@
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "-0.7em")
             .text(function(d) {
@@ -823,7 +842,7 @@
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "0.3em")
             .text(function(d) {
@@ -840,7 +859,7 @@
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "4.3em")
             .text(function(d) {
@@ -856,7 +875,7 @@
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "3.3em")
             .text(function(d) {
@@ -872,7 +891,7 @@
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "2.3em")
             .text(function(d) {
@@ -888,7 +907,7 @@
                 return d.x + (boxSize + extraBoxWidth) / 4;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "1.3em")
             .text(function(d) {
@@ -902,7 +921,7 @@
                 return d.x;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "5.6em")
             .text(function(d) {
@@ -916,7 +935,7 @@
                 return d.x;
             })
             .attr("y", function(d) {
-                return height - d.y;
+                return horizontal_flip_constant - d.y;
             })
             .attr("dy", "6.6em")
             .text(function(d) {
