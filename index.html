@@ -568,13 +568,15 @@
         // variables to alter appearance
 
         // TODO centering doesn't work if you e.g. swap Fisher with Gatherer sub tree
+        // doing that somehow changes the diagram_width
+        
         // TODO how do these vars play into all those constants? (0.3, 0.2 and 4.5)
-        const boxSize = 115; 
+        const boxSize = 115;
         const extraBoxWidth = 115;
         const separation_ratio = 1.5;
         const seperation_space_x = extraBoxWidth + boxSize / 5;
         const seperation_space_y = boxSize / 4 * 3;
-        
+
 
         // initialize svg, width and height
 
@@ -611,7 +613,7 @@
         const width_left_diag_wing = Math.abs(x_positions[0] - seperation_space_x);
         const width_right_diag_wing = Math.abs((diagram_width - width_left_diag_wing));
         const diag_left_to_right_factor = (width_left_diag_wing / (width_left_diag_wing + width_right_diag_wing));
-        
+
         const middle = (width - (scale * (diagram_width + seperation_space_x) * 3));
 
         // graphic objects
@@ -623,12 +625,7 @@
             .attr("class", "zoomG")
             .attr("transform", "translate(" + 0 + "," + 0 + ") scale (" + scale + ")");
 
-        const g = zoomG.append("g")
-            .attr("transform", "translate(" + (((width * diag_left_to_right_factor) * (1 / x_scale)) + middle * 0.5 * (1 / scale)) + "," + 0 + ")");
-        // x * (1 / scale), (diagram_height) * (1 / scale)
-        // x: 605, 373
-        // y: 333, 248
-
+        const g = zoomG.append("g");
 
         var first = true;
         svg.call(d3.zoom().on("zoom", function(d) {
@@ -645,11 +642,12 @@
         // draw the diagram
 
         const horizontal_flip_constant = diagram_height * 4.5; //// TODO why 4.5???
+        const horizontal_move_constant = diagram_width * 2.22; //// TODO why 4.5???
 
         // paths
         const linkPathGenerator = d3.linkVertical()
             .x(function(d) {
-                return d.x;
+                return d.x + horizontal_move_constant;
             })
             .y(function(d) {
                 return horizontal_flip_constant - d.y;
@@ -669,14 +667,14 @@
             .attr("width", rectSize + extraBoxWidth)
             .attr("height", rectSize)
             .attr("transform", function(d) {
-                return "translate(" + (d.x - (rectSize + extraBoxWidth) / 2) + "," + (horizontal_flip_constant - d.y - rectSize / 2) + ")";
+                return "translate(" + (d.x + horizontal_move_constant - (rectSize + extraBoxWidth) / 2) + "," + (horizontal_flip_constant - d.y - rectSize / 2) + ")";
             });
 
         // text
         node.append("text")
             .attr("class", "title")
             .attr("x", function(d) {
-                return d.x;
+                return d.x + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -692,7 +690,7 @@
                 return getItemRarity(d.data.helmet);
             })
             .attr("x", function(d) {
-                return d.x - (boxSize + extraBoxWidth) / 4;
+                return d.x - (boxSize + extraBoxWidth) / 4 + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -708,7 +706,7 @@
                 return getItemRarity(d.data.chestplate);
             })
             .attr("x", function(d) {
-                return d.x - (boxSize + extraBoxWidth) / 4;
+                return d.x - (boxSize + extraBoxWidth) / 4 + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -724,7 +722,7 @@
                 return getItemRarity(d.data.leggings);
             })
             .attr("x", function(d) {
-                return d.x - (boxSize + extraBoxWidth) / 4;
+                return d.x - (boxSize + extraBoxWidth) / 4 + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -740,7 +738,7 @@
                 return getItemRarity(d.data.boots);
             })
             .attr("x", function(d) {
-                return d.x - (boxSize + extraBoxWidth) / 4;
+                return d.x - (boxSize + extraBoxWidth) / 4 + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -756,7 +754,7 @@
                 return getItemRarity(d.data.pet);
             })
             .attr("x", function(d) {
-                return d.x - (boxSize + extraBoxWidth) / 4;
+                return d.x - (boxSize + extraBoxWidth) / 4 + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -772,7 +770,7 @@
                 return getItemRarity(d.data.main_weapon);
             })
             .attr("x", function(d) {
-                return d.x - (boxSize + extraBoxWidth) / 4;
+                return d.x - (boxSize + extraBoxWidth) / 4 + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -788,7 +786,7 @@
                 return getItemRarity(d.data.min_skill1);
             })
             .attr("x", function(d) {
-                return d.x + (boxSize + extraBoxWidth) / 4;
+                return d.x + (boxSize + extraBoxWidth) / 4 + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -804,7 +802,7 @@
                 return getItemRarity(d.data.min_skill2);
             })
             .attr("x", function(d) {
-                return d.x + (boxSize + extraBoxWidth) / 4;
+                return d.x + (boxSize + extraBoxWidth) / 4 + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -820,7 +818,7 @@
                 return getItemRarity(d.data.min_skill3);
             })
             .attr("x", function(d) {
-                return d.x + (boxSize + extraBoxWidth) / 4;
+                return d.x + (boxSize + extraBoxWidth) / 4 + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -836,7 +834,7 @@
                 return getItemRarity(d.data.min_skill4);
             })
             .attr("x", function(d) {
-                return d.x + (boxSize + extraBoxWidth) / 4;
+                return d.x + (boxSize + extraBoxWidth) / 4 + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -853,7 +851,7 @@
                 return getItemRarity(d.data.ability_item1);
             })
             .attr("x", function(d) {
-                return d.x + (boxSize + extraBoxWidth) / 4;
+                return d.x + (boxSize + extraBoxWidth) / 4 + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -869,7 +867,7 @@
                 return getItemRarity(d.data.ability_item2);
             })
             .attr("x", function(d) {
-                return d.x + (boxSize + extraBoxWidth) / 4;
+                return d.x + (boxSize + extraBoxWidth) / 4 + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -885,7 +883,7 @@
                 return getItemRarity(d.data.ability_item3);
             })
             .attr("x", function(d) {
-                return d.x + (boxSize + extraBoxWidth) / 4;
+                return d.x + (boxSize + extraBoxWidth) / 4 + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -901,7 +899,7 @@
                 return getItemRarity(d.data.ability_item4);
             })
             .attr("x", function(d) {
-                return d.x + (boxSize + extraBoxWidth) / 4;
+                return d.x + (boxSize + extraBoxWidth) / 4 + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -915,7 +913,7 @@
         node.append("text")
             .attr("class", "money-text")
             .attr("x", function(d) {
-                return d.x;
+                return d.x + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
@@ -929,7 +927,7 @@
         node.append("text")
             .attr("class", "money-text")
             .attr("x", function(d) {
-                return d.x;
+                return d.x + horizontal_move_constant;
             })
             .attr("y", function(d) {
                 return horizontal_flip_constant - d.y;
