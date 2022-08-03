@@ -567,58 +567,24 @@
 
         // variables to alter appearance
 
-
         const boxSize = 115;
-        const extraBoxWidth = 100;
+        const extraBoxWidth = 115;
 
-        const width = window.screen.width * 3;
-        const height = window.screen.height * 2;
-
-
-        // visualize diagram
+        // initialize svg, width and height
 
         const svg = d3.select("svg");
+        const width = document.body.clientWidth;
+        const height = document.body.clientHeight;
 
-        const client_width = document.body.clientWidth;
-        const client_height = document.body.clientHeight;
-
-        const margin = {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0
-        };
-
-        const innerWidth = width - margin.left - margin.right;
-        const innerHeight = height - margin.top - margin.bottom;
-
-
-        var first = true;
-        const scale = Math.min(client_height / (height + boxSize * 2), client_width / width);
-
-        const treeLayout = d3.tree()
-            .size([innerWidth, innerHeight]);
-
-        const zoomG = svg
-            .attr("width", width)
-            .attr("height", height)
-            .append("g")
-            .attr("class", "zoomG")
-            .attr("transform", "translate(" + 0 + "," + 0 + ") scale (" + scale + ")");
-
-        const g = zoomG.append("g")
-            .attr("transform", "translate(" + margin.left + "," + (margin.top + boxSize) + ")");
-
-        svg.call(d3.zoom().on("zoom", function(d) {
-            if (first) {
-                d.transform.k = d.transform.k * scale;
-                first = false;
-            }
-            zoomG.attr("transform", d.transform);
-        }));
+        // calculate diagram layout
 
         const root = d3.hierarchy(data);
         const nodes = root.descendants();
+        const treeLayout = d3.tree()
+            .nodeSize([boxSize + extraBoxWidth + boxSize / 5, boxSize + boxSize / 4 * 3])
+            .separation(function(a, b) {
+                return (a.parent == b.parent ? 1 : 1.5);
+            });
         const links = treeLayout(root).links();
         const linkPathGenerator = d3.linkVertical()
             .x(function(d) {
@@ -627,6 +593,49 @@
             .y(function(d) {
                 return height - d.y;
             });
+
+        // figure out size of the tree to calculate window fitting scale
+        const x_positions = nodes.map(function(d) {
+            return d.x;
+        }).sort();
+        const diagram_width = Math.abs(x_positions[x_positions.length - 1] - x_positions[0]);
+        const y_positions = nodes.map(function(d) {
+            return d.y;
+        }).sort();
+        const diagram_height = Math.abs(y_positions[y_positions.length - 1] - y_positions[0]);
+
+        const scale = Math.min((height / diagram_height) * 0.2, (width / diagram_width) * 0.3) * ((height / diagram_height) < 1 ? 1 / ((height / diagram_height) * 1.7) : 1);
+        // TODO problems with the height adjustment on wide screeens
+        console.log(x_positions[0]);
+        console.log(y_positions[0]);
+        console.log(diagram_width);
+        console.log(diagram_height);
+        console.log(width);
+        console.log(height);
+        console.log(scale);
+
+        // graphic objects
+
+        const zoomG = svg
+            .attr("width", window.screen.width * 3)
+            .attr("height", window.screen.height * 3)
+            .append("g")
+            .attr("class", "zoomG")
+            .attr("transform", "translate(" + 0 + "," + 0 + ") scale (" + scale + ")");
+
+        const g = zoomG.append("g")
+            .attr("transform", "translate(" + (width / 2 * (1 / scale) * 1.32) + "," + (height + diagram_height + boxSize * 7) * ((height / diagram_height) < 1 ? ((height / diagram_height) * 2.5) : 1) + ")");
+
+        var first = true;
+        svg.call(d3.zoom().on("zoom", function(d) {
+            if (first) {
+                d.transform.k = d.transform.k * scale;
+                first = false;
+            }
+            zoomG.attr("transform", d.transform);
+        }));
+
+        // draw the diagram
 
         // paths
         g.selectAll("path").data(links)
