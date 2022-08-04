@@ -568,17 +568,10 @@
         const svg = d3.select("svg");
 
         const client_width = document.body.clientWidth;
-        const client_height = document.body.clientHeight;
-
-        const margin = {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0
-        };
+        const client_height = document.body.clientHeight - 3 * document.body.getElementsByTagName("header")[0].offsetHeight;
 
         var first = true;
-        const scale = Math.min(client_height / (height + boxSize * 2), client_width / width);
+        const scale = Math.min(client_height / (height), client_width / width);
 
         const treeLayout = d3.tree()
             .size([width, height]);
