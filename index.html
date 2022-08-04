@@ -22,38 +22,67 @@
     <svg id="canvas"></svg>
     <script>
         // meta tree data
-
-        const data = {
+        const data = [{
+            "predecessor": "",
             "name": "New Profile",
             "money": "Wheat - 30k/h ???",
             "cost": "0 coins",
+        }, {
+            "predecessor": "New Profile",
+            "name": "Rookie",
+            "helmet": "&cFarmer Suit",
+            "chestplate": "&cFarmer Suit",
+            "leggings": "&cFarmer Suit",
+            "boots": "&cFarmer Suit",
+            "pet": "&cBee",
+            "main_weapon": "&cUndead Sword",
+            "ability_item1": "&cIron Pickaxe",
+            "ability_item2": "&cRookie Hoe",
+            "money": "Wheat - 40k/h ???",
+            "cost": "6k",
+        }, {
+            "predecessor": "Rookie",
+            "name": "Fighter",
+            "helmet": "&uSquire Armor",
+            "chestplate": "&uSquire Armor",
+            "leggings": "&uSquire Armor",
+            "boots": "&uSquire Armor",
+            "pet": "&cBee",
+            "main_weapon": "&uSquire Sword",
+            "min_skill1": "Combat 5",
+            "min_skill2": "-",
+            "min_skill3": "70 Fairy Souls",
+            "ability_item1": "&uRadiant Power Orb",
+            "ability_item2": "&uWand of Healing",
+            "money": "???",
+            "cost": "45k",
+        }, {
+            "predecessor": "Fighter",
+            "name": "Kuudra",
+        }, {
+            "predecessor": "Kuudra",
+            "name": "t1 Cannonier",
+        }, {
+            "predecessor": "t1 Cannonier",
+            "name": "t2 Cannonier",
+        }, {
+            "predecessor": "Kuudra",
+            "name": "t1 Mage",
+        }, {
+            "predecessor": "t1 Mage",
+            "name": "t2 Mage",
+        }, {
+            "predecessor": "t1 Mage",
+            "name": "t2 Archer",
+        }];
+
+
+        const data2 = {
+            "name": "New Profile",
             "children": [{
                 "name": "Rookie",
-                "helmet": "&cFarmer Suit",
-                "chestplate": "&cFarmer Suit",
-                "leggings": "&cFarmer Suit",
-                "boots": "&cFarmer Suit",
-                "pet": "&cBee",
-                "main_weapon": "&cUndead Sword",
-                "ability_item1": "&cIron Pickaxe",
-                "ability_item2": "&cRookie Hoe",
-                "money": "Wheat - 40k/h ???",
-                "cost": "6k",
                 "children": [{
                     "name": "Fighter",
-                    "helmet": "&uSquire Armor",
-                    "chestplate": "&uSquire Armor",
-                    "leggings": "&uSquire Armor",
-                    "boots": "&uSquire Armor",
-                    "pet": "&cBee",
-                    "main_weapon": "&uSquire Sword",
-                    "min_skill1": "Combat 5",
-                    "min_skill2": "-",
-                    "min_skill3": "70 Fairy Souls",
-                    "ability_item1": "&uRadiant Power Orb",
-                    "ability_item2": "&uWand of Healing",
-                    "money": "???",
-                    "cost": "45k",
                     "children": [{
                         "name": "Kuudra",
                         "children": [{
@@ -647,6 +676,12 @@
         var first = true;
         const scale = Math.min(client_height / (height + boxSize * 2), client_width / width);
 
+        const dataStructure = d3.stratify().id(function(d) {
+            return d.name;
+        }).parentId(function(d) {
+            return d.predecessor;
+        })(data);
+
         const treeLayout = d3.tree()
             .size([width, height]);
 
@@ -668,9 +703,9 @@
             zoomG.attr("transform", d.transform);
         }));
 
-        const root = d3.hierarchy(data);
+        const root = treeLayout(dataStructure);
         const nodes = root.descendants();
-        const links = treeLayout(root).links();
+        const links = root.links();
         const linkPathGenerator = d3.linkVertical()
             .x(function(d) {
                 return d.x;
