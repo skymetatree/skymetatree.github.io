@@ -622,15 +622,13 @@
             }]
         };
 
-        // variables to alter appearance
-
-
+        // variables to alter box appearance
         const boxSize = 115;
         const extraBoxWidth = 150;
-
-        const width = window.screen.width * 3;
-        const height = window.screen.height * 2;
-
+        const horizontal_seperation_factor = 12;
+        const vertical_seperation_factor = 12;
+        const width = window.screen.width * 3 + horizontal_seperation_factor * (boxSize + extraBoxWidth);
+        const height = window.screen.height * 2 + vertical_seperation_factor * (boxSize);
 
         // visualize diagram
 
@@ -646,20 +644,15 @@
             left: 0
         };
 
-         // increase to increase space between nodes vertically / horizontally
-        const innerWidth = width + 12 * (boxSize + extraBoxWidth);
-        const innerHeight = height;
-
-
         var first = true;
-        const scale = Math.min(client_height / (innerHeight + boxSize * 2), client_width / innerWidth);
+        const scale = Math.min(client_height / (height + boxSize * 2), client_width / width);
 
         const treeLayout = d3.tree()
-            .size([innerWidth, innerHeight]);
+            .size([width, height]);
 
         const zoomG = svg
-            .attr("width", innerWidth)
-            .attr("height", innerHeight)
+            .attr("width", width)
+            .attr("height", height)
             .append("g")
             .attr("class", "zoomG")
             .attr("transform", "translate(" + 0 + "," + 0 + ") scale (" + scale + ")");
@@ -689,7 +682,9 @@
         // paths
         g.selectAll("path").data(links)
             .enter().append("path")
-            .attr("d", linkPathGenerator);
+            .attr("d", function(d) {
+                return "M" + d.source.x + "," + (height - d.source.y) + "v " + (-boxSize * 0.9) + " H" + d.target.x + " V" + (height - d.target.y);
+            });
 
         // node
         const rectSize = boxSize;
@@ -1012,8 +1007,5 @@
                 return itemName;
             }
         }
-
     </script>
-</body>
-
-</html>
+</body></html>
