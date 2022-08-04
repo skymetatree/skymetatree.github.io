@@ -8,9 +8,8 @@ Use [this template](https://github.com/skymetatree/skymetatree.github.io/discuss
 Note: The rarity of an item can be added using &c, &u, &r, &e, &l, &m, &d, &s and &v at the beginning of each item name, representing the first letter of that rarity (c = common, u = uncommon, r = rare and so on). This changes the text color according to the settings in the styles.css file.
 
 ## Example
-[![Screenshot 2022-07-30 at 00-59-36 SkyBlock Meta Tree](https://user-images.githubusercontent.com/19228364/181856148-a26b8b6d-24f8-4990-ad5c-7a8a5ee203f2.png)](https://skymetatree.github.io/)
-[Live on https://skymetatree.github.io/
-](https://skymetatree.github.io/)
+[![Screenshot 2022-08-04 at 14-07-27 SkyBlock Meta Tree](https://user-images.githubusercontent.com/19228364/182843165-3de9cd9e-bd09-422c-bb3b-2657c00bfa41.png)](https://skymetatree.github.io/)
+[Live on https://skymetatree.github.io/](https://skymetatree.github.io/)
 
 ## Recources
 This was developed using the following:
