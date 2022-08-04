@@ -929,13 +929,13 @@
             }
         }
 
-        // get a helper name for sorting slikks and aditional items that consists only of a number in case a rarity is included in the item name and the rare item / skill name
+        // get a helper name for sorting skills and aditional items that consists only of a number in case a rarity is included in the item name and the bare item / skill name
         function getSortingPattern(itemName) {
             const nameWithoutLeadingDecimals = itemName.replace(/^([\d ]+)/, "");
             return getItemRarityTierStringForSorting(nameWithoutLeadingDecimals) + getItemText(nameWithoutLeadingDecimals).replace(/^([\d ]+)/, "");
         }
 
-        // get a number from 0 to 8 in case a rarity is included in the item name. "" in case this method doesnt apply to the name.
+        // get a number from 0 to 8 in case a rarity is included in the item name. "" in case this method doesn't apply to the provided string.
         function getItemRarityTierStringForSorting(itemName) {
             if (itemName === undefined)
                 return "";
