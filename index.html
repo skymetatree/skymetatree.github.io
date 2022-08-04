@@ -139,10 +139,10 @@
                                                             "name": "t2 Voidgloom",
                                                             "children": [{
                                                                 "name": "t3 Voidgloom",
-                                                                "helmet": "&lAncient Final Dest. 10k",
-                                                                "chestplate": "&lAncient Final Dest. 10k",
-                                                                "leggings": "&lAncient Final Dest. 10k",
-                                                                "boots": "&lAncient Final Dest. 10k",
+                                                                "helmet": "&lAncient Final Destination 10k",
+                                                                "chestplate": "&lAncient Final Destination 10k",
+                                                                "leggings": "&lAncient Final Destination 10k",
+                                                                "boots": "&lAncient Final Destination 10k",
                                                                 "pet": "&e[Lvl 100] Enderman",
                                                                 "main_weapon": "&eFabled Vorpal Katana",
                                                                 "min_skill1": "Skill Average 40",
@@ -156,10 +156,10 @@
                                                                 "cost": "1.2b",
                                                                 "children": [{
                                                                     "name": "t4 Voidgloom",
-                                                                    "helmet": "&mAncient Final Dest. 25k",
-                                                                    "chestplate": "&mAncient Final Dest. 25k",
-                                                                    "leggings": "&mAncient Final Dest. 25k",
-                                                                    "boots": "&mAncient Final Dest. 25k",
+                                                                    "helmet": "&mAncient Final Destination 25k",
+                                                                    "chestplate": "&mAncient Final Destination 25k",
+                                                                    "leggings": "&mAncient Final Destination 25k",
+                                                                    "boots": "&mAncient Final Destination 25k",
                                                                     "pet": "&e[Lvl 100] Enderman",
                                                                     "main_weapon": "&mFabled Atomsplit Katana",
                                                                     "min_skill1": "Skill Average 40",
@@ -370,10 +370,10 @@
                                     "name": "f3 Mage",
                                     "children": [{
                                         "name": "f4 Mage",
-                                        "helmet": "&eNec. Shadow Goggles 5✪",
-                                        "chestplate": "&lNec. Zombie Soldier 5✪",
-                                        "leggings": "&lNec. Zombie Soldier 5✪",
-                                        "boots": "&lNec. Zombie Soldier 5✪",
+                                        "helmet": "&eNecrotic Shadow Goggles 5✪",
+                                        "chestplate": "&lNecrotic Zombie Soldier 5✪",
+                                        "leggings": "&lNecrotic Zombie Soldier 5✪",
+                                        "boots": "&lNecrotic Zombie Soldier 5✪",
                                         "pet": "&e[Lvl 100] Sheep",
                                         "main_weapon": "&lSpirit Sceptre",
                                         "min_skill1": "Combat 20",
@@ -626,7 +626,7 @@
 
 
         const boxSize = 115;
-        const extraBoxWidth = 100;
+        const extraBoxWidth = 150;
 
         const width = window.screen.width * 3;
         const height = window.screen.height * 2;
@@ -646,25 +646,26 @@
             left: 0
         };
 
-        const innerWidth = width - margin.left - margin.right;
-        const innerHeight = height - margin.top - margin.bottom;
+         // increase to increase space between nodes vertically / horizontally
+        const innerWidth = width + 12 * (boxSize + extraBoxWidth);
+        const innerHeight = height;
 
 
         var first = true;
-        const scale = Math.min(client_height / (height + boxSize * 2), client_width / width);
+        const scale = Math.min(client_height / (innerHeight + boxSize * 2), client_width / innerWidth);
 
         const treeLayout = d3.tree()
             .size([innerWidth, innerHeight]);
 
         const zoomG = svg
-            .attr("width", width)
-            .attr("height", height)
+            .attr("width", innerWidth)
+            .attr("height", innerHeight)
             .append("g")
             .attr("class", "zoomG")
             .attr("transform", "translate(" + 0 + "," + 0 + ") scale (" + scale + ")");
 
         const g = zoomG.append("g")
-            .attr("transform", "translate(" + margin.left + "," + (margin.top + boxSize) + ")");
+            .attr("transform", "translate(" + 0 + "," + boxSize + ")");
 
         svg.call(d3.zoom().on("zoom", function(d) {
             if (first) {
@@ -1011,5 +1012,8 @@
                 return itemName;
             }
         }
+
     </script>
-</body></html>
+</body>
+
+</html>
