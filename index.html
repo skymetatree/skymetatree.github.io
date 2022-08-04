@@ -625,9 +625,13 @@
 
         node.each(function(d) {
             if (d.data.min_skills)
-                d.data.min_skills = d.data.min_skills.sort(); // TODO ignore leading numbers
+                d.data.min_skills = d.data.min_skills.sort(function(a, b) {
+                    return getSortingPattern(a).localeCompare(getSortingPattern(b));
+                });
             if (d.data.ability_items)
-                d.data.ability_items = d.data.ability_items.sort(); // TODO sort by rarity
+                d.data.ability_items = d.data.ability_items.sort(function(a, b) {
+                    return getSortingPattern(b).localeCompare(getSortingPattern(a));
+                }); // TODO
         });
 
         // boxes
@@ -933,6 +937,40 @@
                     return "item-text-very-special";
                 default:
                     return "info-text";
+            }
+        }
+
+        function getSortingPattern(itemName) {
+            const nameWithoutLeadingDecimals = itemName.replace(/^([\d ]+)/, "");
+            return getItemRarityTierStringForSorting(nameWithoutLeadingDecimals) + getItemText(nameWithoutLeadingDecimals).replace(/^([\d ]+)/, "");
+        }
+
+        function getItemRarityTierStringForSorting(itemName) {
+            if (itemName === undefined)
+                return "";
+            if (itemName && itemName.length < 2)
+                return "";
+            switch (itemName.substring(0, 2)) {
+                case '&c':
+                    return "0";
+                case '&u':
+                    return "1";
+                case '&r':
+                    return "2";
+                case '&e':
+                    return "3";
+                case '&l':
+                    return "4";
+                case '&m':
+                    return "5";
+                case '&d':
+                    return "6";
+                case '&s':
+                    return "7";
+                case '&v':
+                    return "8";
+                default:
+                    return "";
             }
         }
 
