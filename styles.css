@@ -150,7 +150,7 @@ text {
     font-family: 'Consolas', serif;
 }
 
-.money-text {
+.income-text {
     @extend .info-text;
     fill: black;
     font-size: 0.5em;
