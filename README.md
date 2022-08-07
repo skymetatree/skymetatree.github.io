@@ -3,12 +3,12 @@
 Each stage of tha game has it's own box with a title, 4 armor pieces, 1 pet, 1 main weapon, 3 skill requirements (min_skill 1-3), 4 ability items and the best income strategy including the average coins per hour.
 
 ## Data Submissions
-Use [this template](https://github.com/skymetatree/skymetatree.github.io/discussions/2) in the discussions section to create a new entry in the 'new data' category. Alternatively you can fork the repository, add the data to the data constant in the index.html file yourself and create a pull request once you are done.
+Fill out the form over at https://skymetatree.github.io/submit/. This will - in the background - send your submitted META to a google sheet in a format that can directly be copy-pasted into the json data structure of this project.
 
-Note: The rarity of an item can be added using &c, &u, &r, &e, &l, &m, &d, &s and &v at the beginning of each item name, representing the first letter of that rarity (c = common, u = uncommon, r = rare and so on). This changes the text color according to the settings in the styles.css file.
+Note: The rarity of an item is displayed using &c, &u, &r, &e, &l, &m, &d, &s and &v at the beginning of each item name, representing the first letter of that rarity (c = common, u = uncommon, r = rare and so on). This changes the text color according to the settings in the styles.css file.
 
 ## Example
-[![Screenshot 2022-08-04 at 14-07-27 SkyBlock Meta Tree](https://user-images.githubusercontent.com/19228364/182843165-3de9cd9e-bd09-422c-bb3b-2657c00bfa41.png)](https://skymetatree.github.io/)
+[![Screenshot 2022-08-07 at 14-37-12 SkyBlock Meta Tree](https://user-images.githubusercontent.com/19228364/183291091-acc8014f-0f50-479d-88bf-0c10a9950dca.png)](https://skymetatree.github.io/)
 [Live on https://skymetatree.github.io/](https://skymetatree.github.io/)
 
 ## Recources
