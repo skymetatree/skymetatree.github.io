@@ -25,10 +25,12 @@
         // meta tree data
         const data = {
             "name": "New Profile",
+            "meta_tier": "Starter",
             "income": "Wheat - 30k/h ???",
             "cost": "0 coins",
             "children": [{
                 "name": "Rookie",
+                "meta_tier": "Respected",
                 "helmet": "&cFarmer Suit",
                 "chestplate": "&cFarmer Suit",
                 "leggings": "&cFarmer Suit",
@@ -730,6 +732,9 @@
         // boxes
         node.append("rect")
             .attr("class", "box")
+            .attr("id", function(d) {
+                return d.data.meta_tier === "Starter" ? "box-border-starter" : d.data.meta_tier === "Respected" ? "box-border-respected" : "box-border";
+            })
             .attr("rx", rectSize / 15)
             .attr("width", rectSize + extraBoxWidth)
             .attr("height", rectSize)

@@ -62,6 +62,21 @@ text {
     font-family: 'Consolas', serif;
 }
 
+#box-border {
+    stroke-width: 4;
+    stroke: #ffffff;
+}
+
+#box-border-starter {
+    stroke-width: 4;
+    stroke: #b2ffb2;
+}
+
+#box-border-respected {
+    stroke-width: 4;
+    stroke: #e39400;
+}
+
 .title {
     fill: #000090;
     font-size: 1em;
