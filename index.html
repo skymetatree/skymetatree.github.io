@@ -65,6 +65,7 @@
                             "ability_items": ["&eWither Cloak Sword"],
                             "income": "Kuudra Killing - 10m coins/h",
                             "cost": "Setup Cost: 10m coins",
+                            "note": "Gloomlock Grimoire for 600 Overflow Mana",
                             "children": [{
                                 "name": "t2 Cannonier",
                             }],
@@ -125,6 +126,7 @@
                                         "min_skills": ["Fairy Souls 200", "Zombie Slayer 7", "Combat 30"],
                                         "income": "Rev Swapping Warden Heart - 1.8m coins/h",
                                         "cost": "Setup Cost: 91m coins",
+                                        "note": "income is greatly dependent on your Magic Find",
                                     }],
                                 }],
                             }, {
@@ -155,6 +157,7 @@
                                                     "ability_items": ["&uRadiant Power Orb", "&rWand of Mending", "&rHeroic Aspect of the End", "&cOdger's Bronze Tooth"],
                                                     "income": "Sven Drops - 200k coins/h",
                                                     "cost": "Setup Cost: 18m coins",
+                                                    "note": "Pond fights recommended / income assuming 5min runs",
                                                     "children": [{
                                                         "name": "Overflux farming",
                                                         "meta_tier": "Respected",
@@ -168,6 +171,7 @@
                                                         "ability_items": ["&lDaedalus Axe"],
                                                         "income": "Killing T4 Svens For Overflux - 5m coins/h",
                                                         "cost": "Setup Cost: 90m coins",
+                                                        "note": "Griffin has Lucky Clover",
                                                     }, {
                                                         "name": "t1 Voidgloom",
                                                         "helmet": "&lWise Young Dragon",
@@ -578,8 +582,10 @@
                                                                                 "pet": "&l[Lvl 200] Golden Dragon",
                                                                                 "main_weapon": "&mHasty Terminator 9✪",
                                                                                 "min_skills": ["Catacombs 40"],
+                                                                                "ability_items": ["&mSuspicious Scylla 6✪"],
                                                                                 "income": "M5 Runs - 10m coins/h",
                                                                                 "cost": "Setup Cost: 2.5b coins",
+                                                                                "note": "[Lvl 100] Legendary Ender Dragon works as substitute",
                                                                                 "children": [{
                                                                                     "name": "m6 Archer",
                                                                                     "children": [{
@@ -774,6 +780,7 @@
                                         "ability_items": ["&lFlorid Zombie Sword", "&lWand of Atonement", "&rStiff Magma Rod"],
                                         "income": "Magma Fishing - 5m coins/h",
                                         "cost": "Setup Cost: 90m coins",
+                                        "note": "Shadow Goggles and Spirit Mask for leeching Jawbus",
                                     }],
                                 }],
                             }],
@@ -784,10 +791,11 @@
         };
 
         // variables to alter box appearance
-        const boxSize = 115;
+        const boxSize = 130;
         const extraBoxWidth = 180;
         const horizontal_seperation_factor = 18;
         const vertical_seperation_factor = 12;
+        const vertical_text_center_factor = -0.5;
 
         // calculate scale
         const client_width = document.body.clientWidth;
@@ -864,7 +872,7 @@
                 return "translate(" + (d.x - (rectSize + extraBoxWidth) / 2) + "," + (height - d.y - rectSize / 2) + ")";
             });
 
-        // text
+        // title
         node.append("text")
             .attr("class", "title")
             .attr("x", function(d) {
@@ -873,7 +881,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "-2.2em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor - 2.2 + "em";
+            })
             .text(function(d) {
                 return d.data.name;
             });
@@ -889,7 +899,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "-2.7em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor - 2.7 + "em";
+            })
             .text(function(d) {
                 return getItemText(d.data.helmet) ?? "-";
             });
@@ -905,7 +917,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "-1.7em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor - 1.7 + "em";
+            })
             .text(function(d) {
                 return getItemText(d.data.chestplate) ?? "-";
             });
@@ -921,7 +935,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "-0.7em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor - 0.7 + "em";
+            })
             .text(function(d) {
                 return getItemText(d.data.leggings) ?? "-";
             });
@@ -937,7 +953,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "0.3em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor + 0.3 + "em";
+            })
             .text(function(d) {
                 return getItemText(d.data.boots) ?? "-";
             });
@@ -953,7 +971,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "2.3em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor + 2.3 + "em";
+            })
             .text(function(d) {
                 return getItemText(d.data.pet) ?? "-";
             });
@@ -969,7 +989,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "4.3em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor + 4.3 + "em";
+            })
             .text(function(d) {
                 return getItemText(d.data.main_weapon) ?? "-";
             });
@@ -985,7 +1007,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "-2.7em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor - 2.7 + "em";
+            })
             .text(function(d) {
                 return getItemText(d.data.min_skills === undefined ? undefined : d.data.min_skills[0]) ?? "-";
             });
@@ -1001,7 +1025,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "-1.7em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor - 1.7 + "em";
+            })
             .text(function(d) {
                 return getItemText(d.data.min_skills === undefined ? undefined : d.data.min_skills[1]) ?? "-";
             });
@@ -1017,7 +1043,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "-0.7em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor - 0.7 + "em";
+            })
             .text(function(d) {
                 return getItemText(d.data.min_skills === undefined ? undefined : d.data.min_skills[2]) ?? "-";
             });
@@ -1033,7 +1061,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "0.3em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor + 0.3 + "em";
+            })
             .text(function(d) {
                 return getItemText(d.data.min_skills === undefined ? undefined : d.data.min_skills[3]) ?? "-";
             });
@@ -1050,7 +1080,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "4.3em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor + 4.3 + "em";
+            })
             .text(function(d) {
                 return getItemText(d.data.ability_items === undefined ? undefined : d.data.ability_items[0]) ?? "-";
             });
@@ -1066,7 +1098,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "3.3em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor + 3.3 + "em";
+            })
             .text(function(d) {
                 return getItemText(d.data.ability_items === undefined ? undefined : d.data.ability_items[1]) ?? "-";
             });
@@ -1082,7 +1116,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "2.3em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor + 2.3 + "em";
+            })
             .text(function(d) {
                 return getItemText(d.data.ability_items === undefined ? undefined : d.data.ability_items[2]) ?? "-";
             });
@@ -1098,7 +1134,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "1.3em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor + 1.3 + "em";
+            })
             .text(function(d) {
                 return getItemText(d.data.ability_items === undefined ? undefined : d.data.ability_items[3]) ?? "-";
             });
@@ -1112,7 +1150,9 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "5.6em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor + 5.6 + "em";
+            })
             .text(function(d) {
                 return d.data.income ?? "-";
             });
@@ -1126,9 +1166,27 @@
             .attr("y", function(d) {
                 return height - d.y;
             })
-            .attr("dy", "6.6em")
+            .attr("dy", function(d) {
+                return vertical_text_center_factor + 6.6 + "em";
+            })
             .text(function(d) {
                 return d.data.cost ?? "-";
+            });
+
+        // note
+        node.append("text")
+            .attr("class", "note-text")
+            .attr("x", function(d) {
+                return d.x;
+            })
+            .attr("y", function(d) {
+                return height - d.y;
+            })
+            .attr("dy", function(d) {
+                return vertical_text_center_factor + 7.8 + "em";
+            })
+            .text(function(d) {
+                return d.data.note ?? "";
             });
 
         // get the class name coresponding to the rarity code
@@ -1209,8 +1267,5 @@
                 return itemName;
             }
         }
-
     </script>
-</body>
-
-</html>
+</body></html>

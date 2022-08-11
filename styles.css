@@ -171,3 +171,10 @@ text {
     font-size: 0.5em;
     text-anchor: middle;
 }
+
+.note-text {
+    @extend .info-text;
+    fill: #6c6c6c;
+    font-size: 0.5em;
+    text-anchor: middle;
+}
